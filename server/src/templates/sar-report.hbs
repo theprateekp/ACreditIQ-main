@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SAR Report — {{institutionName}}</title>
+<style>
+  @page {
+    size: A4;
+    margin: 20mm 18mm 25mm 18mm;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #222;
+  }
+
+  /* ── Blue Header Bar ── */
+  .nba-header {
+    background: #2E5090;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12pt;
+    padding: 6px 0;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Section titles ── */
+  .part-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 14pt;
+    margin: 12px 0 18px;
+  }
+  .criterion-title {
+    font-weight: bold;
+    font-size: 12pt;
+    margin: 18px 0 10px;
+  }
+  .sub-heading {
+    font-weight: bold;
+    font-size: 11pt;
+    margin: 14px 0 6px;
+  }
+  .sub-sub-heading {
+    font-weight: bold;
+    font-size: 10.5pt;
+    margin: 10px 0 4px;
+  }
+  .instruction-text {
+    font-style: italic;
+    color: #444;
+    font-size: 10pt;
+    margin: 2px 0 10px 24px;
+  }
+  .note-text {
+    font-size: 9.5pt;
+    color: #444;
+    margin: 4px 0 8px 24px;
+  }
+
+  /* ── Numbered items ── */
+  .numbered-item {
+    margin: 8px 0;
+    padding-left: 8px;
+  }
+  .numbered-item b { margin-right: 8px; }
+
+  /* ── Tables ── */
+  table.nba-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 14px;
+    font-size: 10pt;
+  }
+  table.nba-table th {
+    background: #2E5090;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 6px;
+    border: 1px solid #1a3a6a;
+    text-align: center;
+    font-size: 9.5pt;
+  }
+  table.nba-table th.yellow {
+    background: #F5C542;
+    color: #222;
+    border-color: #c9a030;
+  }
+  table.nba-table td {
+    padding: 4px 6px;
+    border: 1px solid #999;
+    vertical-align: top;
+  }
+  table.nba-table tr:nth-child(even) td {
+    background: #f8f9fa;
+  }
+  .table-caption {
+    font-weight: bold;
+    font-size: 10pt;
+    margin: 12px 0 4px;
+  }
+
+  /* ── Checkbox items ── */
+  .checkbox-item {
+    margin: 3px 0 3px 24px;
+    font-size: 10.5pt;
+  }
+  .checkbox-box {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #555;
+    margin-left: 12px;
+    vertical-align: middle;
+  }
+  .checkbox-box.checked { background: #2E5090; }
+
+  /* ── Diamond bullets ── */
+  .diamond-item {
+    margin: 3px 0 3px 36px;
+    font-size: 10pt;
+  }
+  .diamond-item::before {
+    content: "\u25C6 ";
+    font-size: 7pt;
+    color: #2E5090;
+  }
+
+  /* ── Page break ── */
+  .page-break { page-break-before: always; }
+
+  /* ── Cover page ── */
+  .cover-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 85vh;
+    text-align: center;
+  }
+  .cover-page .logo-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 20px;
+  }
+  .cover-page h1 {
+    font-size: 22pt;
+    color: #2E5090;
+    margin-bottom: 6px;
+  }
+  .cover-page h2 {
+    font-size: 16pt;
+    color: #333;
+    margin-bottom: 24px;
+  }
+  .cover-page .sar-title {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #2E5090;
+    border: 2px solid #2E5090;
+    padding: 10px 30px;
+    margin: 20px 0;
+  }
+  .cover-info {
+    font-size: 11pt;
+    margin: 4px 0;
+    color: #444;
+  }
+
+  /* ── Generated content ── */
+  .gen-content {
+    margin: 8px 0;
+    font-size: 10.5pt;
+    line-height: 1.6;
+  }
+  .gen-content h1, .gen-content h2, .gen-content h3 {
+    color: #2E5090;
+    margin: 12px 0 6px;
+  }
+  .gen-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+  }
+  .gen-content table th {
+    background: #2E5090;
+    color: #fff;
+    padding: 4px 6px;
+    border: 1px solid #1a3a6a;
+    font-size: 9.5pt;
+  }
+  .gen-content table td {
+    padding: 3px 6px;
+    border: 1px solid #999;
+    font-size: 9.5pt;
+  }
+  .placeholder-field {
+    color: #c00;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════ COVER PAGE ════════ -->
+<div class="cover-page">
+  {{#if logoBase64}}
+  <img src="data:image/jpeg;base64,{{logoBase64}}" alt="Logo" class="logo-img" />
+  {{/if}}
+  <h1>{{institutionName}}</h1>
+  <h2>Department of Electrical Engineering</h2>
+  <div class="sar-title">Self-Assessment Report (SAR)</div>
+  <div class="sar-title" style="font-size:14pt; border-width:1px; padding:8px 20px;">GAPC V4.0 — Tier-II UG Engineering</div>
+  <br/>
+  <div class="cover-info"><b>Academic Year:</b> {{academicYear}}</div>
+  <div class="cover-info"><b>Principal:</b> {{principal}}</div>
+  <div class="cover-info"><b>NBA Coordinator:</b> {{nbaCoordinator}}</div>
+  <div class="cover-info"><b>Date of Submission:</b> {{submissionDate}}</div>
+</div>
+
+<!-- ════════ PART A: INSTITUTIONAL INFORMATION ════════ -->
+<div class="page-break"></div>
+<div class="nba-header">NATIONAL BOARD OF ACCREDITATION</div>
+<div class="part-title">PART A: Institutional Information</div>
+
+<div class="numbered-item"><b>1.</b> <b>Name and Address of the Institution:</b><br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;{{institutionName}}, {{institutionAddress}}</div>
+
+<div class="numbered-item"><b>2.</b> <b>Type of the Institution: (Tick the applicable choice)</b></div>
+<div class="checkbox-item">Institute of National Importance <span class="checkbox-box"></span></div>
+<div class="checkbox-item">Deemed to be University <span class="checkbox-box"></span></div>
+<div class="checkbox-item">University <span class="checkbox-box"></span></div>
+<div class="checkbox-item">Autonomous <span class="checkbox-box"></span></div>
+<div class="checkbox-item">Non-Autonomous (Affiliated) <span class="checkbox-box checked"></span></div>
+<div class="checkbox-item">Any Other (Please specify*) <span class="checkbox-box"></span></div>
+
+<div class="numbered-item"><b>3.</b> <b>Year of Establishment of the Institution:</b> {{establishmentYear}}</div>
+
+<div class="numbered-item"><b>4.</b> <b>Ownership Status: (Tick the applicable choice)</b></div>
+<div class="checkbox-item">Central Government <span class="checkbox-box"></span></div>
+<div class="checkbox-item">State Government <span class="checkbox-box"></span></div>
+<div class="checkbox-item">Grant-in-Aid <span class="checkbox-box"></span></div>
+<div class="checkbox-item">Self-financing Trust <span class="checkbox-box checked"></span></div>
+<div class="checkbox-item">Any Other (Please specify*) <span class="checkbox-box"></span></div>
+
+<div class="numbered-item"><b>5.</b> <b>Name and Address of the Affiliating University:</b> {{affiliatingUniversity}}</div>
+
+<div class="numbered-item"><b>6.</b> <b>Other Academic Institutions Run by Trust/Society/etc., if any:</b></div>
+<div class="table-caption">Table No. A6: List of all Institutions running under the same trust/society.</div>
+<table class="nba-table">
+  <tr><th>S. N.</th><th>Name of the Institution(s)</th><th>Year of Establishment</th><th>Programs of Study</th><th>Location</th></tr>
+  <tr><td>1</td><td class="placeholder-field">[__INSERT DATA__]</td><td class="placeholder-field">[__INSERT DATA__]</td><td class="placeholder-field">[__INSERT DATA__]</td><td class="placeholder-field">[__INSERT DATA__]</td></tr>
+</table>
+
+<div class="numbered-item"><b>7.</b> <b>Details of all the Programs being Offered by the Institution:</b></div>
+<div class="table-caption">Table No. A7: Details of all the programs being offered by the institution.</div>
+<table class="nba-table">
+  <tr><th>S.N</th><th>Program Name</th><th>Year of start</th><th>Sanctioned Intake</th><th>Increase/decrease in intake</th><th>Year of change</th><th>AICTE Approval</th><th>Accreditation Status*</th><th>No. of times accredited</th></tr>
+  <tr><td>1</td><td>BE (Electrical Engineering)</td><td>{{establishmentYear}}</td><td class="placeholder-field">[__INSERT DATA__]</td><td>&mdash;</td><td>&mdash;</td><td class="placeholder-field">[__INSERT DATA__]</td><td>Applying first time</td><td>0</td></tr>
+</table>
+
+<div class="page-break"></div>
+<div class="nba-header">NATIONAL BOARD OF ACCREDITATION</div>
+
+<div class="numbered-item"><b>8.</b> <b>Programs to be Considered for Accreditation vide this Application:</b></div>
+<div class="table-caption">Table No. A8.1: List of programs to be considered for accreditation.</div>
+<table class="nba-table">
+  <tr><th>Cluster ID</th><th>Name of the Department</th><th>Name of the Program</th></tr>
+  <tr><td>1</td><td>Electrical Engineering</td><td>BE (Electrical Engineering)</td></tr>
+</table>
+
+<div class="table-caption">Table No. A8.2: Allied Department(s) to the Department of the programs considered for accreditation.</div>
+<table class="nba-table">
+  <tr><th>Cluster ID</th><th>Name of the Department (in table no. A8.1)</th><th>Name of allied Departments/Cluster (for table no. A8.1)</th></tr>
+  <tr><td>1</td><td>Electrical Engineering</td><td class="placeholder-field">[__INSERT DATA__]</td></tr>
+</table>
+
+<div class="numbered-item"><b>9.</b> <b>Total Number of Faculty Members in Various Departments:</b></div>
+<div class="table-caption">Table No. A9: No. of faculty members in various departments.</div>
+<table class="nba-table">
+  <tr><th rowspan="2">S.N.</th><th rowspan="2">Name of the Department</th><th colspan="4">CAY</th><th colspan="4">CAYm1</th></tr>
+  <tr><th>Professors</th><th>Assoc. Prof.</th><th>Asst. Prof.</th><th>Total</th><th>Professors</th><th>Assoc. Prof.</th><th>Asst. Prof.</th><th>Total</th></tr>
+  <tr><td>1</td><td>Electrical Engineering</td><td class="placeholder-field">[__]</td><td class="placeholder-field">[__]</td><td class="placeholder-field">[__]</td><td class="placeholder-field">[__]</td><td class="placeholder-field">[__]</td><td class="placeholder-field">[__]</td><td class="placeholder-field">[__]</td><td class="placeholder-field">[__]</td></tr>
+</table>
+
+<div class="numbered-item"><b>10.</b> <b>Total Number of Engineering Students in Various Departments:</b></div>
+<div class="table-caption">Table No. A.10: No. of engineering students in various departments.</div>
+<table class="nba-table">
+  <tr><th>S. N.</th><th>Name of the Department</th><th>CAY</th><th>CAYm1</th><th>CAYm2</th></tr>
+  <tr><td>1</td><td>Electrical Engineering</td><td class="placeholder-field">[__INSERT DATA__]</td><td class="placeholder-field">[__INSERT DATA__]</td><td class="placeholder-field">[__INSERT DATA__]</td></tr>
+</table>
+
+<div class="note-text"><b>Note:</b> In case the institution is running programs other than engineering programs (UG and PG), a separate table giving similar details is to be included.</div>
+
+<div class="numbered-item"><b>11.</b> <b>Vision of the Institution:</b><br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;{{#if vision}}{{vision}}{{else}}<span class="placeholder-field">[__INSERT DATA__]</span>{{/if}}</div>
+
+<div class="numbered-item"><b>12.</b> <b>Mission of the Institution:</b><br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;{{#if mission}}{{mission}}{{else}}<span class="placeholder-field">[__INSERT DATA__]</span>{{/if}}</div>
+
+<div class="numbered-item"><b>13.</b> <b>Contact Information of the Head of the Institution and NBA Coordinator:</b></div>
+<div style="margin-left: 24px;">
+  <p><b>A. Head of the Institution</b></p>
+  <div class="diamond-item">Name: {{principal}}</div>
+  <div class="diamond-item">Designation: Principal</div>
+  <div class="diamond-item">Mobile Number: <span class="placeholder-field">[__INSERT DATA__]</span></div>
+  <div class="diamond-item">Email id: principal@tssm.edu.in</div>
+  <br/>
+  <p><b>B. NBA Coordinator:</b></p>
+  <div class="diamond-item">Name: {{nbaCoordinator}}</div>
+  <div class="diamond-item">Designation: NBA Coordinator</div>
+  <div class="diamond-item">Mobile Number: <span class="placeholder-field">[__INSERT DATA__]</span></div>
+  <div class="diamond-item">Email id: hasarmuni@tssm.edu.in</div>
+</div>
+
+<!-- ════════ PART B: CRITERIA SUMMARY ════════ -->
+<div class="page-break"></div>
+<div class="nba-header">NATIONAL BOARD OF ACCREDITATION</div>
+<div class="part-title">PART B: Criteria Summary</div>
+
+<p><b>Name of the Program:</b> {{programName}}</p>
+<p><b>Title of the Degree:</b> Bachelor of Engineering (B.E.)</p>
+<br/>
+
+<table class="nba-table">
+  <tr><th>Criteria No.</th><th>Name of the Criteria</th><th>Marks/Weightage</th></tr>
+  <tr><td colspan="3" style="text-align:center; font-weight:bold; background:#e8ecf0;">Program Level Criteria</td></tr>
+  <tr><td style="text-align:center;">1</td><td>Outcome-Based Curriculum</td><td style="text-align:center;">120</td></tr>
+  <tr><td style="text-align:center;">2</td><td>Outcome-Based Teaching Learning</td><td style="text-align:center;">120</td></tr>
+  <tr><td style="text-align:center;">3</td><td>Outcome-Based Assessment</td><td style="text-align:center;">120</td></tr>
+  <tr><td style="text-align:center;">4</td><td>Students' Performance</td><td style="text-align:center;">120</td></tr>
+  <tr><td style="text-align:center;">5</td><td>Faculty Information</td><td style="text-align:center;">100</td></tr>
+  <tr><td style="text-align:center;">6</td><td>Faculty Contributions</td><td style="text-align:center;">120</td></tr>
+  <tr><td style="text-align:center;">7</td><td>Facilities and Technical Support</td><td style="text-align:center;">100</td></tr>
+  <tr><td style="text-align:center;">8</td><td>Continuous Improvement</td><td style="text-align:center;">80</td></tr>
+  <tr><td colspan="3" style="text-align:center; font-weight:bold; background:#e8ecf0;">Institution Level Criteria</td></tr>
+  <tr><td style="text-align:center;">9</td><td>Student Support and Governance</td><td style="text-align:center;">120</td></tr>
+  <tr><td colspan="2" style="text-align:right; font-weight:bold;">Total Marks/Weights</td><td style="text-align:center; font-weight:bold;">1,000</td></tr>
+</table>
+
+<!-- ════════ PART B: PROGRAM LEVEL CRITERIA — GENERATED SAR CONTENT ════════ -->
+{{#each criteriaContent}}
+<div class="page-break"></div>
+<div class="nba-header">NATIONAL BOARD OF ACCREDITATION</div>
+<div class="criterion-title">Criterion {{this.criterionNum}}: {{this.criterionName}} ({{this.marks}})</div>
+
+{{#each this.subCriteria}}
+<div class="sub-heading">{{this.id}} {{this.name}} ({{this.marks}})</div>
+
+{{#if this.instruction}}
+<p class="instruction-text">{{this.instruction}}</p>
+{{/if}}
+
+{{#if this.content}}
+<div class="gen-content">{{{this.content}}}</div>
+{{else}}
+<p class="instruction-text">(Content not yet generated for this sub-criterion. Use the SAR Generator to produce AI-generated content.)</p>
+{{/if}}
+
+{{#if this.score}}
+<p style="margin:8px 0; font-size:10pt; color:#2E5090;"><b>AI Readiness Score: {{this.score}}/{{this.marks}}</b></p>
+{{/if}}
+
+{{/each}}
+{{/each}}
+
+<!-- ════════ ANNEXURE I: Knowledge and Attitude Profile ════════ -->
+<div class="page-break"></div>
+<div class="nba-header">NATIONAL BOARD OF ACCREDITATION</div>
+<div class="part-title">Annexure I: Knowledge and Attitude Profile (WK)</div>
+<p class="instruction-text">(Refer to NBA Annexure I for the Knowledge and Attitude Profile as defined in GAPC V4.0.)</p>
+<p class="placeholder-field" style="text-align:center; margin:20px;">[__INSERT DATA__]</p>
+
+<!-- ════════ ANNEXURE II: Program Outcomes ════════ -->
+<div class="page-break"></div>
+<div class="nba-header">NATIONAL BOARD OF ACCREDITATION</div>
+<div class="part-title">Annexure II: Program Outcomes (POs) &amp; Program Specific Outcomes (PSOs)</div>
+<p class="instruction-text">(Refer to NBA Annexure II for the 11 Program Outcomes as defined in GAPC V4.0.)</p>
+<p class="placeholder-field" style="text-align:center; margin:20px;">[__INSERT DATA__]</p>
+
+</body>
+</html>

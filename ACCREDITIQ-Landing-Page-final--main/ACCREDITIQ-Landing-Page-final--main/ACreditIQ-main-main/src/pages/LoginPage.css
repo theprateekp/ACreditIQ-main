@@ -1,0 +1,475 @@
+.login-page-wrapper {
+  --border-color: #31302E;
+  --shadow-color: #31302E;
+  --main-bg-color: #000;
+  --secondary-bg-color: #F8EEE2;
+  --lamp-light-color: #E2D3C1;
+  --lamp-dark-color: #E2D3C1;
+  --rope-color: #EF4629;
+  --icon-color: #31302E;
+  --lamp-width: 140px;
+  --lamp-height: 100px;
+  --lamp-top-height: 20px;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-bg-color);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  
+  /* Reset Tailwind specific resets inside the wrapper if needed, 
+     but the basic styles should prevail */
+}
+
+/* Slider form - positioned above lamp */
+.login-page-wrapper .slider-form {
+  margin: 0 0 2em 0;
+  width: 200px;
+  padding: 1.5em 2.2em;
+  border-radius: 4px;
+  background: var(--secondary-bg-color);
+  box-shadow: 0 5px 15px var(--shadow-color);
+  z-index: 10;
+}
+
+.login-page-wrapper .lamp-wrapper {
+  position: relative;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 2em;
+}
+
+.login-page-wrapper .lamp {
+  height: var(--lamp-height);
+  width: var(--lamp-width);
+  position: relative;
+  z-index: 2;
+}
+
+.login-page-wrapper .lamp-part {
+  background-color: var(--lamp-dark-color);
+  transform: skewX(-5deg);
+  height: var(--lamp-height);
+  width: 60%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.login-page-wrapper .lamp-part.-body.right {
+  transform: skewX(5deg);
+  left: auto;
+  right: 0;
+}
+
+.login-page-wrapper .lamp-part.-top {
+  background: transparent;
+  position: absolute;
+  width: calc(var(--lamp-width) - 10px);
+  height: var(--lamp-top-height);
+  left: 6px;
+  top: -17px;
+}
+
+.login-page-wrapper .lamp-part.-top-part {
+  width: 50%;
+  height: var(--lamp-top-height);
+  left: 0;
+  top: 0;
+  transform: skewX(-5deg);
+  border-radius: 80% 0 0 0;
+  border-top: 2px solid var(--border-color);
+  border-bottom: none;
+}
+
+.login-page-wrapper .lamp-part.-top-part.right {
+  transform: skewX(5deg);
+  left: auto;
+  right: 1px;
+  border-radius: 0 80% 0 0;
+}
+
+.login-page-wrapper .lamp-part.-bottom {
+  background: linear-gradient(#FFFFFA, #FDFFB2);
+  height: calc(var(--lamp-top-height) + 10px);
+  width: calc(var(--lamp-width) + 10px);
+  position: absolute;
+  top: auto;
+  bottom: -18px;
+  left: -5px;
+  border-radius: 50%;
+  border-top: 3px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.login-page-wrapper .lamp-part.-bottom:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient(var(--border-color), var(--lamp-light-color));
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+
+.login-page-wrapper .blub {
+  position: absolute;
+  width: calc(var(--lamp-width) - 20px);
+  height: calc(var(--lamp-height) - 20px);
+  top: calc(var(--lamp-top-height) - 10px);
+  left: calc(var(--lamp-top-height) - 10px);
+  border-radius: 5% 3% 38% 40%;
+  background-color: #FFFFFA;
+  -webkit-filter: blur(15px);
+  filter: blur(15px);
+  z-index: 2;
+  opacity: 0;
+  transition: all 300ms;
+}
+
+.login-page-wrapper .lamp-rope {
+  position: absolute;
+  width: 8px;
+  height: 200px;
+  background: linear-gradient(var(--border-color) 9%, var(--rope-color));
+  bottom: 100%;
+  margin: auto;
+}
+
+.login-page-wrapper .wall-light-shadow {
+  background: linear-gradient(var(--lamp-light-color), var(--main-bg-color) 30%);
+  width: 80%;
+  height: 200vh;
+  position: absolute;
+  top: 150%;
+  left: auto;
+  border-radius: 50% 50% 0 0;
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+  z-index: -1;
+  opacity: 0;
+  transition: all 300ms;
+}
+
+/* Login form - positioned below lamp */
+.login-page-wrapper .login-form {
+  margin-top: 50px;
+  width: 250px;
+  padding: 2em 2.2em;
+  border-radius: 8px;
+  background: #663300;
+  box-shadow: 0 5px 15px var(--shadow-color);
+  opacity: 0;
+  transition: all 300ms ease;
+  transform: translateY(20px);
+}
+
+.login-page-wrapper .login-form h2 {
+  text-align: center;
+  color: #E2D3C1;
+  margin-bottom: 1.5em;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.login-page-wrapper .form-group {
+  margin-bottom: 1.2em;
+}
+
+.login-page-wrapper .form-group label {
+  display: block;
+  margin-bottom: 0.5em;
+  color: #E2D3C1;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.login-page-wrapper .form-group input {
+  width: 100%;
+  padding: 0.8em;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1em;
+  transition: border-color 300ms ease;
+  box-sizing: border-box;
+  background: #E2D3C1;
+  color: #000;
+}
+
+.login-page-wrapper .form-group input:focus {
+  outline: none;
+  border-color: var(--rope-color);
+  background: #fff;
+}
+
+.login-page-wrapper .login-btn {
+  width: 100%;
+  padding: 0.8em;
+  background: #E2D3C1;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 300ms ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.login-page-wrapper .login-btn:hover {
+  color: #E2D3C1;
+  background: #be5f00;
+  transform: translateY(-1px);
+}
+
+.login-page-wrapper .icon {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+}
+
+.login-page-wrapper .sun {
+  background: var(--icon-color);
+  border-radius: 50%;
+  position: relative;
+  float: left;
+  transform: scale(0.8);
+}
+
+.login-page-wrapper .ray {
+  background: var(--icon-color);
+  width: 2px;
+  height: 4px;
+  position: absolute;
+  left: 3px;
+  bottom: 12px;
+  transform-origin: 50% calc(100% + 8px);
+  border-radius: 50%;
+}
+
+.login-page-wrapper .ray:nth-child(1) { transform: rotate(45deg); }
+.login-page-wrapper .ray:nth-child(2) { transform: rotate(90deg); }
+.login-page-wrapper .ray:nth-child(3) { transform: rotate(135deg); }
+.login-page-wrapper .ray:nth-child(4) { transform: rotate(180deg); }
+.login-page-wrapper .ray:nth-child(5) { transform: rotate(225deg); }
+.login-page-wrapper .ray:nth-child(6) { transform: rotate(270deg); }
+.login-page-wrapper .ray:nth-child(7) { transform: rotate(315deg); }
+.login-page-wrapper .ray:nth-child(8) { transform: rotate(360deg); }
+
+.login-page-wrapper input[type=range] {
+  -webkit-appearance: none;
+  width: calc(100% - 30px);
+  float: right;
+  background: transparent;
+}
+
+.login-page-wrapper input[type=range]:focus {
+  outline: none;
+}
+
+.login-page-wrapper input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: var(--icon-color);
+}
+
+.login-page-wrapper input[type=range]::-webkit-slider-thumb {
+  height: 13px;
+  width: 13px;
+  border-radius: 50%;
+  background: var(--icon-color);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6px;
+}
+
+.login-page-wrapper input[type=range]:hover::-webkit-slider-thumb {
+  box-shadow: 0 0 5px var(--icon-color);
+}
+
+.login-page-wrapper input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: var(--icon-color);
+}
+
+.login-page-wrapper input[type=range]::-moz-range-thumb {
+  height: 13px;
+  width: 13px;
+  border-radius: 50%;
+  background: var(--icon-color);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6px;
+}
+
+/* Light intensity states */
+.login-page-wrapper[data-light="1"] .blub, 
+.login-page-wrapper[data-light="1"] .wall-light-shadow {
+  opacity: 0.1;
+}
+.login-page-wrapper[data-light="1"] .lamp-part.-bottom:before {
+  opacity: 0.9;
+}
+.login-page-wrapper[data-light="1"] .login-form {
+  opacity: 0.1;
+  transform: translateY(15px);
+  pointer-events: none;
+}
+
+.login-page-wrapper[data-light="2"] .blub, 
+.login-page-wrapper[data-light="2"] .wall-light-shadow {
+  opacity: 0.2;
+}
+.login-page-wrapper[data-light="2"] .lamp-part.-bottom:before {
+  opacity: 0.8;
+}
+.login-page-wrapper[data-light="2"] .login-form {
+  opacity: 0.2;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.login-page-wrapper[data-light="3"] .blub, 
+.login-page-wrapper[data-light="3"] .wall-light-shadow {
+  opacity: 0.3;
+}
+.login-page-wrapper[data-light="3"] .lamp-part.-bottom:before {
+  opacity: 0.7;
+}
+.login-page-wrapper[data-light="3"] .login-form {
+  opacity: 0.3;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.login-page-wrapper[data-light="4"] .blub, 
+.login-page-wrapper[data-light="4"] .wall-light-shadow {
+  opacity: 0.4;
+}
+.login-page-wrapper[data-light="4"] .lamp-part.-bottom:before {
+  opacity: 0.6;
+}
+.login-page-wrapper[data-light="4"] .login-form {
+  opacity: 0.4;
+  transform: translateY(6px);
+  pointer-events: none;
+}
+
+.login-page-wrapper[data-light="5"] .blub, 
+.login-page-wrapper[data-light="5"] .wall-light-shadow {
+  opacity: 0.5;
+}
+.login-page-wrapper[data-light="5"] .lamp-part.-bottom:before {
+  opacity: 0.5;
+}
+.login-page-wrapper[data-light="5"] .login-form {
+  opacity: 0.5;
+  transform: translateY(4px);
+  pointer-events: none;
+}
+
+.login-page-wrapper[data-light="6"] .blub, 
+.login-page-wrapper[data-light="6"] .wall-light-shadow {
+  opacity: 0.6;
+}
+.login-page-wrapper[data-light="6"] .lamp-part.-bottom:before {
+  opacity: 0.4;
+}
+.login-page-wrapper[data-light="6"] .login-form {
+  opacity: 0.6;
+  transform: translateY(3px);
+  pointer-events: none;
+}
+
+.login-page-wrapper[data-light="7"] .blub, 
+.login-page-wrapper[data-light="7"] .wall-light-shadow {
+  opacity: 0.7;
+}
+.login-page-wrapper[data-light="7"] .lamp-part.-bottom:before {
+  opacity: 0.3;
+}
+.login-page-wrapper[data-light="7"] .login-form {
+  opacity: 0.7;
+  transform: translateY(2px);
+  pointer-events: none;
+}
+
+.login-page-wrapper[data-light="8"] .blub, 
+.login-page-wrapper[data-light="8"] .wall-light-shadow {
+  opacity: 0.8;
+}
+.login-page-wrapper[data-light="8"] .lamp-part.-bottom:before {
+  opacity: 0.2;
+}
+.login-page-wrapper[data-light="8"] .login-form {
+  opacity: 0.8;
+  transform: translateY(1px);
+  pointer-events: none;
+}
+
+.login-page-wrapper[data-light="9"] .blub, 
+.login-page-wrapper[data-light="9"] .wall-light-shadow {
+  opacity: 0.9;
+}
+.login-page-wrapper[data-light="9"] .lamp-part.-bottom:before {
+  opacity: 0.1;
+}
+.login-page-wrapper[data-light="9"] .login-form {
+  opacity: 0.9;
+  transform: translateY(0);
+  pointer-events: none;
+}
+
+.login-page-wrapper[data-light="10"] .blub, 
+.login-page-wrapper[data-light="10"] .wall-light-shadow {
+  opacity: 1;
+}
+.login-page-wrapper[data-light="10"] .lamp-part.-bottom:before {
+  opacity: 0;
+}
+.login-page-wrapper[data-light="10"] .login-form {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto; /* Allow interactions when fully lit */
+}
+
+/* ── Auth error & hint (added for credential validation) ── */
+.login-error {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #FCA5A5;
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.login-hint {
+  margin-top: 16px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.login-hint p {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  margin: 2px 0;
+  font-family: monospace;
+}

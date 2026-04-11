@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Old Institutional Light Theme ─────────────────────────────────────────
+   Aesthetic: Government portal / University ERP / Classic enterprise system
+   Palette: Off-white page, slate-navy header, warm gray surfaces, ink text
+   ─────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Page & surfaces */
+  --bg-page:      #f8fafc;   /* clean minimal off-white */
+  --bg-surface:   #ffffff;   /* bright white cards */
+  --bg-header:    #ffffff;   /* stark white header / sidebar */
+  --bg-header-2:  #f1f5f9;   /* subtle accent for sidebar */
+  --bg-row-alt:   #f8fafc;   /* alternating table row */
+  --bg-input:     #ffffff;
+  --bg-hover:     #f1f5f9;
+
+  /* Borders */
+  --border:       #e2e8f0;   /* clean minimal border */
+  --border-dark:  #cbd5e1;   /* stronger border */
+  --border-header:#e2e8f0;   /* border inside header */
+
+  /* Text */
+  --text-primary: #1e3a5f;   /* deep navy from landing page */
+  --text-secondary:#475569;  /* slate secondary */
+  --text-muted:   #94a3b8;   /* muted / placeholder */
+  --text-header:  #1e3a5f;   /* navy text on light header */
+  --text-header-muted: #64748b;
+
+  /* Accent */
+  --accent:       #1e3a5f;   /* institutional navy */
+  --accent-hover: #162a45;
+  --accent-light: #f0f7ff;   /* matching badge bg */
+
+  /* Status */
+  --success:      #15803D;
+  --success-bg:   #DCFCE7;
+  --warning:      #B45309;
+  --warning-bg:   #FEF3C7;
+  --danger:       #B91C1C;
+  --danger-bg:    #FEE2E2;
+  --info:         #1D4ED8;
+  --info-bg:      #DBEAFE;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Arial', sans-serif;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: var(--bg-page); }
+::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ─── Utility classes for the institutional theme ────────────────────────── */
+.th-page        { background-color: var(--bg-page); }
+.th-surface     { background-color: var(--bg-surface); border: 1px solid var(--border); }
+.th-header      { background-color: var(--bg-header); color: var(--text-header); }
+.th-sidebar     { background-color: var(--bg-header-2); color: var(--text-header); }
+.th-border      { border-color: var(--border); }
+.th-border-dark { border-color: var(--border-dark); }
+.th-text        { color: var(--text-primary); }
+.th-text-2      { color: var(--text-secondary); }
+.th-text-muted  { color: var(--text-muted); }
+.th-text-header { color: var(--text-header); }
+.th-accent      { color: var(--accent); }
+.th-accent-bg   { background-color: var(--accent-light); color: var(--accent); }
+
+/* ─── Old-system card style ──────────────────────────────────────────────── */
+.card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+.card-header {
+  background: linear-gradient(180deg, #F4F3EE 0%, #ECEAE2 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 14px;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Table styles ───────────────────────────────────────────────────────── */
+.inst-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.inst-table th {
+  background: var(--bg-header-2);
+  border: 1px solid var(--border-dark);
+  border-bottom: 2px solid var(--border-dark);
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.inst-table td {
+  border: 1px solid var(--border);
+  padding: 5px 10px;
+  color: var(--text-secondary);
+}
+.inst-table tr:nth-child(even) td { background-color: var(--bg-row-alt); }
+.inst-table tr:hover td { background-color: var(--accent-light); }
+
+/* ─── Button styles ──────────────────────────────────────────────────────── */
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border: 1px solid var(--accent-hover);
+  border-radius: 4px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+.btn-primary:hover { background: var(--accent-hover); }
+
+.btn-secondary {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+.btn-secondary:hover { background: var(--bg-hover); }
+
+/* ─── Status badge styles ────────────────────────────────────────────────── */
+.badge { display: inline-flex; align-items: center; padding: 2px 7px; border-radius: 2px; font-size: 10px; font-weight: 700; border: 1px solid; letter-spacing: 0.02em; }
+.badge-success  { background: var(--success-bg);  color: var(--success);  border-color: #86EFAC; }
+.badge-warning  { background: var(--warning-bg);  color: var(--warning);  border-color: #FCD34D; }
+.badge-danger   { background: var(--danger-bg);   color: var(--danger);   border-color: #FCA5A5; }
+.badge-info     { background: var(--info-bg);     color: var(--info);     border-color: #93C5FD; }
+.badge-neutral  { background: #F1F0EA;            color: var(--text-secondary); border-color: var(--border-dark); }
+
+/* ─── Progress bar ───────────────────────────────────────────────────────── */
+.progress-track { background: #E0DED5; border: 1px solid var(--border); border-radius: 2px; height: 8px; }
+.progress-fill  { height: 100%; border-radius: 1px; }
+
+/* ─── Section divider ────────────────────────────────────────────────────── */
+.section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+
+/* ─── Input ──────────────────────────────────────────────────────────────── */
+input, select, textarea {
+  background: var(--bg-input);
+  border: 1px solid var(--border-dark);
+  border-radius: 2px;
+  color: var(--text-primary);
+  font-size: 12px;
+  padding: 4px 8px;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+  border-color: var(--accent);
+}

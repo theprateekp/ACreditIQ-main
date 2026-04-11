@@ -1,0 +1,26 @@
+{
+  "name": "accreditiq-chatbot",
+  "version": "1.0.0",
+  "description": "AccreditIQ AI Chatbot with NBA GAPC V4.0 RAG",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@mistralai/mistralai": "^2.2.0",
+    "@supabase/supabase-js": "^2.49.0",
+    "@vapi-ai/web": "^2.5.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.0",
+    "mammoth": "^1.12.0",
+    "multer": "^2.1.1",
+    "pdf-parse": "^2.4.5",
+    "pdfkit": "^0.18.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.0"
+  }
+}
